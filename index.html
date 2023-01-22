@@ -5,15 +5,28 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Chat App</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="app">
-      <div id="chat-container"></div>
-      <form>
-        <textarea name="prompt" cols="1" rows="1" placeholder="Ask robot..."></textarea>
-        <button type="submit"><img src="./assets/send.svg" alt=""></button>
-      </form>
+    <div>
+      <div id="nav">
+        <img style="width:36px;height: 36px;" src="./assets/user.svg" alt="user">
+        <h3><span style="color: red; font-weight: bold; font-size: 25px;">Welcome</span> To Chat GPT-3</h3>
+        <img style="width:36px;height: 36px;"  src="./assets/bot.svg" alt="codex">
+      </div>
+      <div id="spacer"></div>
+      <div id="app">
+        <div id="chat-container"></div>
+        <form>
+          <textarea
+            name="prompt"
+            cols="1"
+            rows="1"
+            placeholder="Ask robot..."
+          ></textarea>
+          <button type="submit"><img src="./assets/send.svg" alt="" /></button>
+        </form>
+      </div>
     </div>
     <script type="module" src="/script.js"></script>
   </body>

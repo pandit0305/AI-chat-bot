@@ -1,4 +1,4 @@
-import bot from './assets/bot.svg';
+import bot from "./assets/bot.svg";
 import user from "./assets/user.svg";
 
 const form = document.querySelector("form");
@@ -7,44 +7,41 @@ const chatContainer = document.querySelector("#chat-container");
 
 let loadInterval;
 
-const loader = (element)=>{
+const loader = (element) => {
   element.textContent = "";
 
-  loadInterval = setInterval(()=>{
+  loadInterval = setInterval(() => {
     element.textContent += ".";
 
     // reset the loading
-    if(element.textContent === "...."){
-      element.textContent ="";
+    if (element.textContent === "....") {
+      element.textContent = "";
     }
-  },300)
+  }, 300);
+};
 
-}
-
-const typetext =(element, text)=>{
+const typetext = (element, text) => {
   let index = 0;
-  let interval = setInterval(()=>{
-    if(index < text.length){
+  let interval = setInterval(() => {
+    if (index < text.length) {
       element.textContent += text.charAt(index);
       index++;
-    }else{
+    } else {
       clearInterval(interval);
     }
-  },20)
-}
+  }, 20);
+};
 
-
-const generateUniqueId = ()=>{
+const generateUniqueId = () => {
   const timeStamp = Date.now();
   const randomNumber = Math.random();
   const hexadecimalString = randomNumber.toString(16);
 
   return `id-${timeStamp}-${hexadecimalString}`;
-}
+};
 
-const chatWith =(isAI, value, uniqueId)=>{
-  return (
-    `
+const chatWith = (isAI, value, uniqueId) => {
+  return `
       <div class="wrapper ${isAI && "ai"}">
           <div class="chat">
             <div class="profile">
@@ -58,17 +55,15 @@ const chatWith =(isAI, value, uniqueId)=>{
             </div>
           </div>
       </div>
-    `
-  )
-}
+    `;
+};
 
-
-const handleSubmit = async(e) =>{
+const handleSubmit = async (e) => {
   e.preventDefault();
 
   const data = new FormData(form);
 
-  //user chat 
+  //user chat
 
   chatContainer.innerHTML += chatWith(false, data.get("prompt"));
 
@@ -85,41 +80,40 @@ const handleSubmit = async(e) =>{
 
   loader(messageDiv);
 
-  const response = await fetch("https://vast-lime-angelfish-slip.cyclic.app",{
-    method:"POST",
+  const response = await fetch("https://stormy-boot-newt.cyclic.app", {
+    method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      prompt: data.get("prompt")
-    })
-  })
+      prompt: data.get("prompt"),
+    }),
+  });
 
   clearInterval(loadInterval);
 
   messageDiv.innerHTML = "";
 
-  if(response.ok){
+  if (response.ok) {
     const data = await response.json();
     const parseData = data.bot.trim();
 
-    typetext(messageDiv,parseData);
-
-  }else{
+    typetext(messageDiv, parseData);
+  } else {
     const err = await response.text();
 
     messageDiv.innerHTML = "Something went wrong";
 
     alert(err);
-
   }
-
-}
+};
 
 form.addEventListener("submit", handleSubmit);
 
-form.addEventListener("keyup", (e)=>{
-  if(e.keyCode === 13){
+form.addEventListener("keyup", (e) => {
+  if (e.keyCode === 13) {
     handleSubmit(e);
   }
-})
+});
+
+// https://vast-lime-angelfish-slip.cyclic.app
